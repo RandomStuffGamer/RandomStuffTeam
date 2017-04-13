@@ -1,0 +1,36 @@
+using System;
+using Discord;
+using Discord.WebSocket;
+using System.Threading.Tasks;
+
+namespace Zip
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        => new Program().StartAsync().GetAwaiter().GetResult();
+
+        private DiscordSocketClient _client;
+
+        private CommandHandler _handler;
+
+        public async Task StartAsync()
+        {
+            _client = new DiscordSocketClient();
+
+            new CommandHandler(_client);
+
+            await _client.LoginAsync(TokenType.Bot, "MzAxMDc3OTkwODQ1MTg2MDQ4.C9D52A.hKeMDt4R7brxqPxyd_wDr9m3yls");
+
+            await _client.StartAsync();
+
+            _handler = new CommandHandler();
+
+            await _handler.InitializeAsync(_client);
+
+            await Task.Delay(-1);
+        }
+
+    }
+
+}
